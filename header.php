@@ -1,3 +1,8 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -63,7 +68,12 @@
                         <li><a href="explore.php">Shop</a></li>
                         <li><a href="create.php">Contact</a></li>
                         <li><a href="cart.php" class="nav-item">
-                                <i class="fas fa-shopping-cart"> </i></a></li>
+                                <i class="fas fa-shopping-cart">
+                                  <?php if(isset($_SESSION['quantity'])  && $_SESSION['quantity'] !=0){ ?>
+                                      <span><?php echo $_SESSION['quantity']; ?></span>
+                                  <?php } ?>
+
+                                </i></a></li>
                         <li><a href="user.php" class="nav-item">
                                 <i class="fas fa-user"> </i></a></li>
                     </ul>
