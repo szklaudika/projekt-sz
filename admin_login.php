@@ -1,21 +1,19 @@
 <?php
-
-global $conn;
 session_start();
-
+global $conn;
 include('server/connection.php');
 
 if(isset($_SESSION["admin_logged_in"])){
-    header("location: admin.php");
-    exit;
+    header("location: admin_panel.php");
+    exit();
 }
 
-if(isset($_POST["login_btn"])){
+if(isset($_POST["admin_login_btn"])){
 
     $email = $_POST["email"];
     $password = md5($_POST["password"]);
 
-    $stmt = $conn->prepare("SELECT admin_id, admin_name, admin_email, admin_password FROM admins WHERE admin_email=? AND admin_password=? LIMIT 1");
+    $stmt = $conn->prepare("SELECT admin_id, admin_name, admin_email, admin_password FROM admins WHERE admin_email=? AND admin_password=?");
 
     $stmt->bind_param("ss", $email, $password);
 
@@ -34,20 +32,18 @@ if(isset($_POST["login_btn"])){
             header("location: admin_panel.php?login_success=Logged in successfully");
 
         }else{
-            header("location: user.php?error=Could not verify your account");
+            header("location: admin_login.php?error=Could not verify your account");
         }
 
     }else{
         //error
-        header("location: user.php?error=Something went wrong");
+        header("location: admin_login.php?error=Something went wrong");
 
     }
 }
 
-?>
 
-<?php
-include_once 'header.php';
+include_once 'admin_header.php';
 ?>
 
 
@@ -79,10 +75,9 @@ include_once 'header.php';
                                     Please enter your password.
                                 </div>
                             </div>
-                            <p class="small mb-5 pb-lg-2"><a class="text-muted" href="#!">Forgot password?</a></p>
-                            <p>Don't have an account? <a href="register.php" class="link-info">Register here</a></p>
+
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary" name="login_btn">Login</button>
+                                <button type="submit" class="btn btn-primary" name="admin_login_btn">Login</button>
 
                             </div>
                         </form>
