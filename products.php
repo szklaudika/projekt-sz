@@ -63,6 +63,14 @@ $products = $stmt2->get_result();
                     <?php if(isset($_GET['edit_failure_message'])){ ?>
                         <p style="color: red"><?php echo $_GET['edit_failure_message']; ?></p>
                     <?php } ?>
+
+
+                    <?php if(isset($_GET['deleted_failure'])){ ?>
+                        <p style="color: red"><?php echo $_GET['deleted_failure']; ?></p>
+                    <?php } ?>
+                    <?php if(isset($_GET['deleted_successfully'])){ ?>
+                        <p style="color: mediumpurple"><?php echo $_GET['deleted_successfully']; ?></p>
+                    <?php } ?>
                 </div>
             </div>
             <div class="table-responsive">
@@ -83,13 +91,13 @@ $products = $stmt2->get_result();
                     <?php foreach ($products as $product) {?>
                         <tr>
                             <td style="color: white;"><?php echo $product['product_id']; ?></td>
-                            <td><img src="<?php echo "images/".$product['product_image']; ?>" style="width:70px; height:70px"/></td>
+                            <td><img src="<?php echo "images/".$product['product_image']; ?>" style="width:70px; height:70px" alt=""/></td>
                             <td style="color: white;"><?php echo $product['product_name']; ?></td>
                             <td style="color: white;"><?php echo $product['product_price']."€"; ?></td>
                             <td style="color: white;"><?php echo $product['product_special_offer']."%"; ?></td>
                             <td style="color: white;"></td>
                             <td style="color: white;"><a class="btn btn-primary" href="edit_product.php?product_id=<?php echo $product['product_id'];?>">Edit</a></td>
-                            <td style="color: white;"><a class="btn btn-danger">Delete</a></td>
+                            <td style="color: white;"><a class="btn btn-danger" href="delete_product.php?product_id=<?php echo $product['product_id']; ?>">Delete</a></td>
                         </tr>
                     <?php } ?>
                     </tbody>
