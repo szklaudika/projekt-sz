@@ -4,6 +4,13 @@ include ('admin_header.php')
 ?>
 
 <?php
+if(!isset($_SESSION['admin_logged_in'])){
+    header('location: admin_login.php');
+    exit();
+}
+?>
+
+<?php
 
 if(isset($_GET['page_no']) && $_GET['page_no'] != "") {
 $page_no = $_GET['page_no'];
@@ -50,6 +57,12 @@ $orders = $stmt2->get_result();
                 <div class="section-heading">
                     <div class="line-dec"></div>
                     <h2>Order <em>details</em> </h2>
+                    <?php if(isset($_GET['order_failed'])){ ?>
+                        <p style="color: red"><?php echo $_GET['order_failed']; ?></p>
+                    <?php } ?>
+                    <?php if(isset($_GET['order_updated'])){ ?>
+                        <p style="color: mediumpurple"><?php echo $_GET['order_updated']; ?></p>
+                    <?php } ?>
                 </div>
             </div>
             <div class="table-responsive">
@@ -75,7 +88,7 @@ $orders = $stmt2->get_result();
                         <td style="color: white;"><?php echo $order['order_date']; ?></td>
                         <td style="color: white;"><?php echo $order['user_phone']; ?></td>
                         <td style="color: white;"><?php echo $order['user_address']; ?></td>
-                        <td style="color: white;"><a class="btn btn-primary">Edit</a></td>
+                        <td style="color: white;"><a class="btn btn-primary" href="edit_order.php?order_id=<?php echo $order['order_id'];?>">Edit</a></td>
                         <td style="color: white;"><a class="btn btn-danger">Delete</a></td>
                     </tr>
                     <?php } ?>
