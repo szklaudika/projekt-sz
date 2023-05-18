@@ -71,6 +71,13 @@ $products = $stmt2->get_result();
                     <?php if(isset($_GET['deleted_successfully'])){ ?>
                         <p style="color: mediumpurple"><?php echo $_GET['deleted_successfully']; ?></p>
                     <?php } ?>
+
+                    <?php if(isset($_GET['product_failed'])){ ?>
+                        <p style="color: red"><?php echo $_GET['product_failed']; ?></p>
+                    <?php } ?>
+                    <?php if(isset($_GET['product_created'])){ ?>
+                        <p style="color: mediumpurple"><?php echo $_GET['product_created']; ?></p>
+                    <?php } ?>
                 </div>
             </div>
             <div class="table-responsive">
